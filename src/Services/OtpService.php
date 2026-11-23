@@ -16,14 +16,18 @@ class OtpService
      */
     public static function otpGenerator(int $digit = 4)
     {
+        if ($digit < 1) {
+            $digit = 4;
+        }
+
         $gen = '0135792468';
         $res = '';
         for ($i = 1; $i <= $digit; $i++)
         {
-            $res .= substr($gen, (rand()%(strlen($gen))), 1);
+            $res .= substr($gen, random_int(0, strlen($gen) - 1), 1);
         }
         if(isset($res[0]) && $res[0] == '0'){
-            $res[0] = substr(trim($gen,'0'), (rand()%(strlen($gen)-1)), 1);
+            $res[0] = substr(trim($gen,'0'), random_int(0, strlen($gen) - 2), 1);
         }
         return $res;
     }

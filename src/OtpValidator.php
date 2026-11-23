@@ -82,7 +82,7 @@ class OtpValidator
             if(self::$switch[config('otp.resend')] === self::ENABLED && OtpService::countResend($request) > config('otp.max-resend')) return "";
 
             // OTP Generation and Persistence
-            $getOtp = OtpService::otpGenerator();
+            $getOtp = OtpService::otpGenerator((int) config('otp.digit', 4));
             $uuid = md5($request->client_req_id.time());
             OtpService::createOtpRecord($request, $getOtp, $uuid);
 
